@@ -84,9 +84,21 @@ App = {
   ,
 
 
-
   castVote: function() {
-    var candidateId = $('#candidatesSelect').val();
+
+    // Checks whether a candidate is chosen or not.
+    // if it is, we get the Candidate's ID, which we will use
+    // when we call the vote function in Smart Contracts
+    if ($("#candidatesSelect :checkbox:checked").length > 0){ 
+      // just takes the first checked box and gets its id
+      var candidateId = $("#candidatesSelect :checkbox:checked")[0].id
+    } 
+    else {
+      // print message if user didn't vote for candidate
+     console.log('please select a condidate first')
+      return
+    }
+   // Actually voting for the Candidate using the Contract and displaying "Voted"
     App.contracts.Election.deployed().then(function(instance) {return instance.vote(candidateId, { from: App.account });
     }).then(function(result) {
     // Wait for votes to update
@@ -96,6 +108,8 @@ App = {
     console.error(err);
     });
     },
+    
+
     listenForEvents: function() {
       App.contracts.Election.deployed().then(function(instance) {
         instance.votedEvent({}, {
