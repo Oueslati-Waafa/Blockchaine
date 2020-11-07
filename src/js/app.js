@@ -33,8 +33,10 @@ App = {
     var electionInstance;
     var loader = $("#loader");
     var content = $("#content");
+    var table = $("#table");
     loader.show();
     content.hide();
+    table.hide();
     // Load account data
     web3.eth.getCoinbase(function(err, account) {
     if (err === null) {
@@ -62,8 +64,8 @@ App = {
     "</td><td>" + voteCount + "</td></tr>"
     candidatesResults.append(candidateTemplate);
     // Render candidate ballot option
-    var candidateOption = "<li><input type='checkbox'  value='" + id + "' >  " + name + "</li>"
-    candidatesSelect.append(candidateOption);
+    //var candidateOption = "<li><input type='checkbox'  value='" + id + "' >  " + name + "</li>"
+    candidatesSelect.append("<div class='form-check'><input class='form-check-input' type='checkbox' value='' id= " + id + "> <label class='form-check-label' for=0>  "+ name +"  </label></div>");
     });
     }
     return electionInstance.voters(App.account);
@@ -71,6 +73,7 @@ App = {
     // Do not allow a user to vote
     if(hasVoted) {
     $('form').hide();
+    table.show();
     }
     loader.hide();
     content.show();
@@ -79,6 +82,9 @@ App = {
     });
     }
   ,
+
+
+
   castVote: function() {
     var candidateId = $('#candidatesSelect').val();
     App.contracts.Election.deployed().then(function(instance) {return instance.vote(candidateId, { from: App.account });
