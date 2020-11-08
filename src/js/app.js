@@ -19,6 +19,7 @@ App = {
     return App.initContract();
   },
 
+  
   initContract: function() {
     $.getJSON("Election.json", function(election) {
       // Instantiate a new truffle contract from the artifact
@@ -41,9 +42,11 @@ App = {
     web3.eth.getCoinbase(function(err, account) {
     if (err === null) {
     App.account = account;
-    $("#accountAddress").html("Your Account: " + account);
+    $("#accountAddress").html("Your Account Address is : " + account);
     }
     });
+
+   
     // Load contract data
     App.contracts.Election.deployed().then(function(instance) {
     electionInstance = instance;
@@ -54,14 +57,16 @@ App = {
     var candidatesSelect = $('#candidatesSelect');
     candidatesSelect.empty();
     for (var i = 1; i <= candidatesCount; i++) {
+
     electionInstance.candidates(i).then(function(candidate) {
     var avatar = candidate [2];
     var id = candidate[0];
     var name = candidate[1];
     var voteCount = candidate[3];
+
     // Render candidate Result
     var candidateTemplate = "<tr><th>" + avatar + "</th><th>" + id + "</th><td>" + name +
-    "</td><td>" + voteCount + "</td></tr>"
+    "</td><td>" + voteCount  + "</td></tr>"
     candidatesResults.append(candidateTemplate);
     // Render candidate ballot option
     //var candidateOption = "<li><input type='checkbox'  value='" + id + "' >  " + name + "</li>"
@@ -83,8 +88,9 @@ App = {
     }
   ,
 
-
   castVote: function() {
+
+
 
     // Checks whether a candidate is chosen or not.
     // if it is, we get the Candidate's ID, which we will use
@@ -104,6 +110,7 @@ App = {
     // Wait for votes to update
     $("#content").hide();
     $("#loader").show();
+    $("#table").show();
     }).catch(function(err) {
     console.error(err);
     });

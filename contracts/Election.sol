@@ -11,7 +11,7 @@ contract Election{
   mapping(uint => Candidate) public candidates;
   mapping( address => bool) public voters;
   uint public candidatesCount;
-  uint public totalVotes;
+ 
 
  event votedEvent (
         uint indexed _candidateId
@@ -43,4 +43,5 @@ contract Election{
 
         emit votedEvent(_candidateId);
     }
+
 }
