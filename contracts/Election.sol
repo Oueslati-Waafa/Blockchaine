@@ -11,6 +11,7 @@ contract Election{
   mapping(uint => Candidate) public candidates;
   mapping( address => bool) public voters;
   uint public candidatesCount;
+  uint public totalVotes;
  
 
  event votedEvent (
@@ -22,6 +23,7 @@ contract Election{
      addCandidate("Condidate 2","url2");
      addCandidate("Condidate 3","url3");
      addCandidate("Condidate 4","url4");
+     totalVotes=0;
 
  }
 
@@ -41,6 +43,9 @@ contract Election{
         // update candidate vote Count
         candidates[_candidateId].voteCount ++;
 
+        totalVotes++;
+
+        
         emit votedEvent(_candidateId);
     }
 
