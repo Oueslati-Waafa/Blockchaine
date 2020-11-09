@@ -63,19 +63,7 @@ App = {
     var id = candidate[0];
     var name = candidate[1];
     var voteCount = candidate[3];
-
-   /**  electionInstance.totalVotes().then(function (total) {
-      let percent =(total==0)?0:voteCount / total * 100;
-
-      var candidateTemplate = "<tr><td>" + avatar + "</td><td>" + id + "</td><td>" + name +
-          "</td><td>" + percent + " %" + "</td></tr>";
-    candidatesResults.append(candidateTemplate);
-    // Render candidate ballot option
-    //var candidateOption = "<li><input type='checkbox'  value='" + id + "' >  " + name + "</li>"
-    candidatesSelect.append("<div class='form-check'><input class='form-check-input' type='checkbox' value='' id= " + id + "> <label class='form-check-label' for=0>  "+ name +"  </label></div>");
-    });
-    }
-  }**/
+    
   electionInstance.totalVotes().then(function (total) {
     let percentage =(total==0)?0:voteCount / total * 100;
 
