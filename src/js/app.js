@@ -64,13 +64,15 @@ App = {
     var name = candidate[1];
     var voteCount = candidate[3];
     
+    //calculer la pourcentage des votes
   electionInstance.totalVotes().then(function (total) {
     let percentage =(total==0)?0:voteCount / total * 100;
 
     var candidateTemplate = "<tr><td>" + avatar + "</td><td>" + id + "</td><td>" + name +
         "</td><td>" + percentage + " %" + "</td></tr>";
     candidatesResults.append(candidateTemplate);
-    // Render candidate ballot option
+    // Render candidate as checkbox list
+    //liste des checkbox
     candidatesSelect.append("<div class='form-check'><input class='form-check-input' type='checkbox' value='' id= " + id + "> <label class='form-check-label' for=0>  "+ name +"  </label></div>");
   })
 });
